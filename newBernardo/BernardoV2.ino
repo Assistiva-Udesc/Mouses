@@ -72,7 +72,6 @@ if (mouse){//modo mouse
   
   while (!digitalRead(botao_prog)){  //switch de programacao press
     estadoBotao();
-    //Serial.print("botao prog press\n");
     timer++;
     if (!b1.debounce){timer=0;mouse=0;player=1;}
     if (!b2.debounce){timer=0;mouse=0;player=2;}
@@ -83,9 +82,7 @@ if (mouse){//modo mouse
 
   
   sens=map(analogRead(potenciometro),0,900 ,1012,1023); //faz a leitura do potenciometro e ja converte para uma faixa de 1012 até 1023
-  if(sens==1023)sens=0;//quando o valor for 1023 dizemos q ele é zero para nao haver movimento do cursor
-  //Serial.print(analogRead(potenciometro));
-  //Serial.print("\n");
+  if(sens==1024)sens=1023;//quando o valor for 1024 (potenciomento no GND) mudamos o valor para que ele possua uma baixa movimentação pois não faz sentido ter uma opcao de sensibilidade == 0+  
   
   if (!digitalRead(right))Mouse.move(-sens, 0, 0); //movimento right, porta 6
   if (!digitalRead(left))Mouse.move(sens, 0, 0); //movimento left, porta 7
